@@ -16,16 +16,18 @@ public class CreateXML {
 		
 		if (creater.length() == 32 && sts > cts && !dur.equals("0") && !capa.equals("0") && !major.equals("0")
 				&& !len.equals("0") && !price.equals("0")) {
-			String ret = CreateDBConn.result(cn, ci, status, creater, cts, loc, sts, dur, capa, major, len, price);
 			
-			if (ret.equals("1")) {
+			int ret = CreateDBConn.result(cn, ci, status, creater, cts, loc, sts, dur, capa, major, len, price);
+			
+			if (ret == 1) {
 				Element root = doc.addElement("create");
 				Element errno = root.addElement("errno");
 				errno.setText("0");
+				
 				Element msg = root.addElement("msg");
 				msg.setText("成功");
 			}
-			else if (ret.equals("7")) {
+			else if (ret == 7) {
 				doc = CreateErrXML.getErrCode(7);
 			}
 		}

@@ -1,10 +1,10 @@
-package create;
+package content;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-public class CreateErrXML {
+public class ContErrXML {
 	public static Document getErrCode(int err) {
 		Document doc = buildXML(err);
 		return doc;
@@ -45,14 +45,7 @@ public class CreateErrXML {
 			Element errno = root.addElement("errno");
 			errno.setText("6");
 			Element msg = root.addElement("msg");
-			msg.setText("删除失败");
-		}
-		else if (err == 7) {
-			Element root = doc.addElement("error");
-			Element errno = root.addElement("errno");
-			errno.setText("7");
-			Element msg = root.addElement("msg");
-			msg.setText("创建失败");
+			msg.setText("密码错误");
 		}
 		return doc;
 	}

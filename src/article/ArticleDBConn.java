@@ -16,7 +16,7 @@ public class ArticleDBConn {
 	static Statement statement = null;
 	static ResultSet tResult = null, sResult = null;
 
-	public static String obtainInfos(String uic, String level, int amount) throws SQLException, ClassNotFoundException, NullPointerException {
+	public static String obtainInfos(String uic, String level, int amount, String s) throws SQLException, ClassNotFoundException, NullPointerException {
 		int mount = amount - 1;
 		String ret = null;
 		String sp = "@!#";
@@ -29,7 +29,7 @@ public class ArticleDBConn {
 			if (level.equals("t")) {
 				tResult = statement.executeQuery("SELECT `course_id`, `course_name`, `img_url`, `course_intro`, `url`, `status`, `creater`, "
 						+ "`create_time`, `course_location`, `start_time`, `duration`, `capacity`, `major_id`, `course_length`, `price`, `rating`"
-						+ " FROM `Course` WHERE creater = '" + uic + "' and status = '1' ORDER BY start_time LIMIT " 
+						+ " FROM `Course` WHERE creater = '" + uic + "' and status = '" + s + "' ORDER BY start_time LIMIT " 
 						+ String.valueOf(mount) + ", " + String.valueOf(amount));
 				
 				String cid = null, cn = null, ci = null, creater = null, ctime = null, loc = null, stime = null, dur = null, capa = null, 
@@ -58,8 +58,9 @@ public class ArticleDBConn {
 						 + sp + dur + sp + capa + sp + major + sp + len + sp + price + sp + rate;
 			}
 			else if (level.equals("s")) {
-				sResult = statement.executeQuery("SELECT `student_id`, `creater`, `course_id`, `status`, `rating`, `select_time` FROM `Student_Course` "
-						+ "WHERE student_id = '" + uic + "' ORDER BY select_time LIMIT " + mount + ", " + amount);
+				sResult = statement.executeQuery("SELECT t1.`student_id`, t1.`creater`, t1.`course_id`, t1.`status`, t1.`rating`, "
+						+ "t1.`select_time` FROM Student_Course t1, Course t2 WHERE t1.student_id = '" + uic + "' and  t2.status = '" + s + "' "
+								+ "and t1.course_id = t2.course_id ORDER BY t2.start_time LIMIT " + mount + ", " + amount);
 				
 				String sID = null, creater = null, cid = null, status = null, rating = null, sltime = null;
 				

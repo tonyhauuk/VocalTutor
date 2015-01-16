@@ -7,7 +7,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 public class ArtXML {
-	public static Document buildXML(String uic, String level, String mount) throws ClassNotFoundException, NullPointerException, SQLException {
+	public static Document buildXML(String uic, String level, String mount, String s) throws ClassNotFoundException, NullPointerException, SQLException {
 		int amount = Integer.parseInt(mount);
 		Document doc = DocumentHelper.createDocument();
 
@@ -15,8 +15,13 @@ public class ArtXML {
 			Element root = doc.addElement("articles"); // root node
 			if (level.equals("t")) {				
 				for (int i = 1; i <= amount; i++) {
-					String ret  = ArticleDBConn.obtainInfos(uic, level, i).replaceAll("null", " ");
+					String ret  = ArticleDBConn.obtainInfos(uic, level, i, s).replaceAll("null", " ");
 					String[] r = ret.split("@!#");
+					
+					Element errno = root.addElement("errno");
+					errno.setText("0");
+					Element msg = root.addElement("msg");
+					msg.setText("成功");
 										
 					Element article = root.addElement("article"); // article node 
 					Element course = article.addElement("course");
@@ -57,12 +62,16 @@ public class ArtXML {
 			}
 			else if (level.equals("s")) {
 				for (int i = 1; i <= amount; i++) {
-					String ret  = ArticleDBConn.obtainInfos(uic, level, i).replaceAll("null", " ");
+					String ret  = ArticleDBConn.obtainInfos(uic, level, i, s).replaceAll("null", " ");
 					String[] r = ret.split("@!#");
+					
+					Element errno = root.addElement("errno");
+					errno.setText("0");
+					Element msg = root.addElement("msg");
+					msg.setText("成功");
 					
 					Element article = root.addElement("article"); // article node 
 					Element course = article.addElement("course");
-					
 					Element studId = course.addElement("student_id");
 					studId.setText(r[0]);
 					Element creater = course.addElement("creater");

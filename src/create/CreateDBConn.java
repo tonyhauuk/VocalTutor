@@ -17,29 +17,37 @@ public class CreateDBConn {
 	static Statement statement = null;
 	static ResultSet result = null, ins = null;
 	
-	public static String result(String cn, String ci, String status, String creater, Long cts, String loc, Long sts, String dur,
+	public static int result(String cn, String ci, String status, String creater, Long cts, String loc, Long sts, String dur,
 			String capa, String major, String len, String price) {
-		String ret = null;
 		int createSucc = 0;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String date = sdf.format(new Date(sts));
+		String createDate = sdf.format(new Date(cts));
+		String startDate = sdf.format(new Date(sts));
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(URL, USR, PWD);
 			statement = conn.createStatement();
 			
-			result = statement.executeQuery("SELECT `creater`,`start_time`FROM `Course` WHERE `creater`='" + creater + "'"
-					+ " AND `start_time`='" + date + "'");
-			String time = null;
-			while (result.next())
-				time = result.getString("start_time"); 
-			if (time != null) {
-				createSucc = statement.executeUpdate("");
-			}else
-				ret = "7";
+			result = statement.executeQuery("SELECT `start_time`FROM `Course` WHERE `creater`='"  +  creater  +  "'"
+					 +  " AND `start_time`='"  +  startDate  +  "'");
+			String stime = null;
 			
+			while (result.next())
+				stime = result.getString("start_time");
+				
+			 if (stime == null) {
+				 
+				 
+				 String d = "INSERT INTO `cwl`.`Course` (`course_name` ,`img_url` ,`course_intro` ,`url` ,`status` ,"
+					 		 +  "`creater` ,`create_time` ,`course_location` ,`start_time` ,`duration` ,`capacity` ,`major_id` ,`course_length`"
+					 		 +  " ,`price`) VALUES ('" + cn + "', '', '" + ci + "', '' , '" + status + "', " + "'" + creater + "',"
+				 				 +  " '" + createDate + "', '" + loc + "', '" + startDate + "', '" + dur + "', " + "'" + capa + "', '" + major + "', '" + len + "', '" + price + "')";
+				
+				 createSucc = statement.executeUpdate(d);
+			}else 
+				createSucc = 7;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException ex) {
@@ -64,6 +72,6 @@ public class CreateDBConn {
 				e.printStackTrace();
 			}
 		}
-		return ret;
+		return createSucc;
 	}
 }

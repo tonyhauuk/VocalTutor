@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.dom4j.Document;
 import org.dom4j.io.XMLWriter;
 
-import delete.DelErrXML;
-
 public class Create extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -43,13 +41,16 @@ public class Create extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+			writer = new XMLWriter(response.getWriter());
+			writer.write(doc);
+			writer.flush();
+			writer.close();
 		}
 		else if (cName.equals("") || cIntro.equals("") || status.equals("") || creater.equals("") || ts.equals("") || loc.equals("") ||
 				dur.equals("") || capa.equals("") || major.equals("") || len.equals("") || price.equals("") || cName == null || cIntro == null
 				|| status == null || creater == null || ts == null || loc == null || dur == null || capa == null || major == null || len == null 
 				|| price == null){
-			doc = DelErrXML.getErrCode(2);
+			doc = CreateErrXML.getErrCode(2);
 			writer = new XMLWriter(response.getWriter());
 			writer.write(doc);
 			writer.flush();

@@ -1,4 +1,4 @@
-package article;
+package content;
 
 import java.io.IOException;
 
@@ -10,22 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.dom4j.Document;
 import org.dom4j.io.XMLWriter;
 
-public class Article extends HttpServlet {
+public class Content extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
-		String uic = request.getParameter("uic");
+		String cid = request.getParameter("cid");
 		String level = request.getParameter("level");
-		String status = request.getParameter("status");
-		String amount = request.getParameter("amount");
 		
 		response.setCharacterEncoding("UTF-8");
 		XMLWriter writer = null;
 		Document doc = null;
 		
-		if (uic != null && !uic.equals("") && level != null && !level.equals("") && amount != null && !amount.equals("") && status != null && !status.equals("")) {
+		if (!cid.equals("") && !level.equals("") && cid != null && level != null) {
 			try {
-				doc = ArtXML.buildXML(uic, level, amount, status);
+				doc = ContXML.buildXML(cid, level);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -34,8 +32,8 @@ public class Article extends HttpServlet {
 			writer.flush();
 			writer.close();
 		}
-		else if (uic == null || uic.equals("") || level == null || level.equals("") || amount == null || amount.equals("")) {
-			doc = ArtErrXML.getErrCode(2);
+		else if (cid.equals("") || level.equals("") || cid == null || level == null) {
+			doc = ContErrXML.getErrCode(2);
 			writer = new XMLWriter(response.getWriter());
 			writer.write(doc);
 			writer.flush();
@@ -45,5 +43,6 @@ public class Article extends HttpServlet {
 	
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
-	} 
+	}
 }
+
