@@ -38,15 +38,14 @@ public class CreateDBConn {
 				stime = result.getString("start_time");
 				
 			 if (stime == null) {
-				 
-				 
 				 String d = "INSERT INTO `cwl`.`Course` (`course_name` ,`img_url` ,`course_intro` ,`url` ,`status` ,"
 					 		 +  "`creater` ,`create_time` ,`course_location` ,`start_time` ,`duration` ,`capacity` ,`major_id` ,`course_length`"
 					 		 +  " ,`price`) VALUES ('" + cn + "', '', '" + ci + "', '' , '" + status + "', " + "'" + creater + "',"
 				 				 +  " '" + createDate + "', '" + loc + "', '" + startDate + "', '" + dur + "', " + "'" + capa + "', '" + major + "', '" + len + "', '" + price + "')";
 				
 				 createSucc = statement.executeUpdate(d);
-			}else 
+			}
+			 else 
 				createSucc = 7;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
