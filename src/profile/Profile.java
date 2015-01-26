@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.io.XMLWriter;
 
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static Logger log = Logger.getLogger(Profile.class);
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uic = request.getParameter("uic");
 		String level = request.getParameter("level");
@@ -26,6 +28,7 @@ public class Profile extends HttpServlet {
 			try {
 				doc = ProfXML.buildXML(uic, level);
 			} catch (Exception e) {
+				log.error(e.toString());
 				e.printStackTrace();
 			}
 			writer = new XMLWriter(response.getWriter());

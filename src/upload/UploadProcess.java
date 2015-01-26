@@ -43,7 +43,7 @@ public class UploadProcess {
 			createPath(uploadPath, ava, icon, audio, video, photo, cert);
 			createTempPath(tempPath, avaTemp, iconTemp, audioTemp, videoTemp, photoTemp, certTemp);
 			
-			// Avator teacher
+			// Avatar teacher
 			if (type.equals("ava") && level.equals("s")) {
 				DiskFileItemFactory factory = new DiskFileItemFactory();
 				
@@ -51,7 +51,7 @@ public class UploadProcess {
 				factory.setRepository(tempAva);
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				upload.setSizeMax(1024 * 1024 * 2); // Avator 2MB
+				upload.setSizeMax(1024 * 1024 * 2); // Avatar 2MB
 				
 				List<FileItem> items = upload.parseRequest(request);
 				Iterator<FileItem> i = items.iterator();
@@ -68,7 +68,7 @@ public class UploadProcess {
 					udb.imgSql(type, level, ava + fileName, uic);
 				}
 			}
-			// Avator student
+			// Avatar student
 			else if (type.equals("ava") && level.equals("t")) {
 				DiskFileItemFactory factory = new DiskFileItemFactory();
 				
@@ -76,7 +76,7 @@ public class UploadProcess {
 				factory.setRepository(tempAva);
 				
 				ServletFileUpload upload = new ServletFileUpload(factory);
-				upload.setSizeMax(1024 * 1024 * 2); // Avator 2MB
+				upload.setSizeMax(1024 * 1024 * 2); // Avatar 2MB
 				
 				List<FileItem> items = upload.parseRequest(request);
 				Iterator<FileItem> i = items.iterator();

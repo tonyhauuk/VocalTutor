@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="C:/Users/Adminstrator/workspace/VocalTutor/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Adminstrator/workspace/VocalTutor/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Adminstrator/workspace/VocalTutor/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Adminstrator/workspace/VocalTutor/log4j-1.2-api-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Adminstrator/workspace/VocalTutor/log4j-core-2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
